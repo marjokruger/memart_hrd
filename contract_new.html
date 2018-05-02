@@ -1,0 +1,270 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Memorial Art Pty LTD</title>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<link type="text/css" rel="stylesheet" href="/stylesheets/laybuy_main.css">
+	<link type="text/css" rel="stylesheet" href="/stylesheets/jquery-ui.css">	
+	<script type="text/javascript" src="/scripts/laybuy.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.js"></script>	
+	<script type="text/javascript" src="/scripts/jquery-ui.js"></script>	
+    <script type="text/javascript">
+	  	  //
+	  	  // As mentioned at http://en.wikipedia.org/wiki/XMLHttpRequest
+	  	  //
+	 	   if( !window.XMLHttpRequest ) XMLHttpRequest = function()
+	  	  {
+	       	try{ return new ActiveXObject("Msxml2.XMLHTTP.6.0") }catch(e){}
+	       	try{ return new ActiveXObject("Msxml2.XMLHTTP.3.0") }catch(e){}
+	       	try{ return new ActiveXObject("Msxml2.XMLHTTP") }catch(e){}
+	       	try{ return new ActiveXObject("Microsoft.XMLHTTP") }catch(e){}
+	       	throw new Error("Could not find an XMLHttpRequest alternative.")
+	    }
+	
+	    // Insert 'Functions' as the name of a callable method
+	    InstallFunction(server, 'ItemDesc');    
+	    InstallFunction(server, 'ItemPrice');        
+    </script>
+</head>	
+<body>
+	<div id="topheader">	
+		<h1>{{ mainheading }}</h1>
+	</div>
+	<div class="mainpage">
+		<div class="centered">
+			<div class="leftcol">
+				<div class="contract">
+					<div id="contractheader">
+						<h2>New Contract</h2>
+					</div>	
+					<div id="contractbody">
+						<form action="/savec" onsubmit="return validate_form_newc(this)" method="post">
+							<table id="Table_contract">
+								<thead> 
+									<tr>
+										<th style=width:50></th>
+										<th style=width:200></th>
+									</tr>								
+								</thead>	
+								<tbody id="bodytop">
+							    	<tr><td></td><td><input type="hidden" id="cperiod" readonly="readonly" value="{{ hk.contract_period }}">
+									<tr><td class="bodytop_label">Contract number</td> <td><input type="text" name="ckey"></td></tr>
+									<tr><td class="bodytop_label">Branch</td>
+										<td><select name="branchname">
+											{% for branch in branches %}
+												<option value="{{ branch.branchname }}">{{ branch.branchname }}</option>
+											{% endfor %} 
+											</select></td></tr>
+									<tr><td class="bodytop_label">Method of Payment</td><td><select name="methodofpayment">
+												<option value=" "> </option>
+												{% for m in mop %}
+													<option value="{{ m.mop }}">{{ m.mop }}</option>
+												{% endfor %} 												
+											</select>
+									</td></tr>									
+									<tr><td class="bodytop_label">Contract start</td><td><input type="text" name="date_start" id="dates" class="datei" onchange="doCalcEnd()"> <b>Contract end</b> <input type="text" name="date_end" id="datee" readonly="readonly"></td></tr>
+									
+									<tr><td><hr class="hr_small"/></td><td><hr /></td></tr>	
+
+<!-- 								<tr><td class="bodytop_label"> Customer Name</td><td><input type="text" name="customer_name" size="73"> <b>Customer Code</b> <input size="5" type="text" name="customer_code"></td></tr> -->																	
+									<tr><td class="bodytop_label">Customer Name</td><td><input type="text" name="customer_name" size="72"></td></tr>
+                                    <tr><td class="bodytop_label">ID Number</td><td><input type="text" name="customer_id" size="30"></td></tr>
+									<tr><td class="bodytop_label">Address</td><td><div><textarea name="customer_address" rows="4" cols="70"></textarea></div></td></tr>
+                                    <tr><td class="bodytop_label">Email</td><td><input type="text" name="customer_email" size="72"></td></tr>
+                                    <tr><td class="bodytop_label">Cellphone</td><td><input type="text" name="customer_cellphone" size="29">
+                                    	<b> Landline  </b><input type="text" name="customer_landline" size="29"></td></tr>
+                                    	
+									<tr><td><hr class="hr_small"/></td> <td><hr /></td></tr>	
+									
+									<tr><td class="bodytop_label">Cemetary</td><td><input type="text" name="rearplace" size="72"></td></tr>
+									<tr><td class="bodytop_label">Installation date</td><td><input type="text" class="datei" name="date_rear">
+										<b>Grave Number</b> <input type="text" name="gravenumber" size="31"></td></tr>
+									<tr><td class="bodytop_label">Special Instructions</td><td><div><textarea name="comments" rows="2" cols="70"></textarea></div></td></tr>
+									<tr><td class="bodytop_label">Inscription</td><td><div><textarea name="letters" rows="2" cols="70" onkeyup="countL(this)"></textarea></div></td></tr>
+
+									<tr><td><hr class="hr_small"/></td><td><hr /></td></tr>	  																		
+
+<!--									<tr><th align="right">Status</th><td><input type="text" name="status"/></td></tr>-->									                                    	
+								</tbody>
+								<tfoot></tfoot>									
+							</table>    
+							<table id="Table_contract_2">
+								<thead> 
+									<tr>
+										<th style=min-width:130px></th>
+										<th style=min-width:450px>Comment</th>										
+										<th>Price</th>
+									</tr>								
+								</thead>	
+								<tbody id="bodytop2">									
+									<tr><td class="bodytop_label">Plan fees</td><td><input type=text name="planfeescomment" size="73"></td><td><input type=text id="planfeesprice" name="planfeesprice" class="rand" onchange="doTotals()"></td></tr>
+									<tr><td class="bodytop_label">Transport</td><td><input type=text name="transportcomment" size="73"></td><td><input type=text id="transportprice" name="transportprice" class="rand" onchange="doTotals()"></td></tr>
+<!-- 									<tr><td class="bodytop_label">Sundries</td><td><input type=text name="sundriescomment" size="73"></td><td><input type=text id="sundriesprice" name="sundriesprice" class="rand" onchange="doTotals()"></td></tr> -->
+									<tr><td class="bodytop_label">Letters</td><td><input type="text" id="lettercount" name="lettercount" size="10" onchange="doLetterCost()"> @ <input type=text id="lettercost" name="lettercost" value="{{ hk.lettercost }}" size="10" readonly="readonly"> per letter</td><td><input type=text id="letterprice" name="letterprice" class="rand" onchange="doTotals()" readonly="readonly"></td></tr>									
+<!-- 									<tr><td></td><td></td><td><input type=text class="rand" id="contractcost" name="addtotal" readonly="readonly"></td></tr> -->
+								</tbody>
+							</table>
+							<table id="tableSundry">
+								<thead> 
+									<tr>
+										<th style=min-width:130px></th>
+										<th style=min-width:450px></th>										
+										<th></th>
+										<th></th>
+									</tr>									
+								</thead>	
+								<tbody id="bodySundry">									
+									<tr id="trSundry">
+<!-- 										<td><input type="date" name="sunddate" id="sund" class="datei"></td>										 -->
+										<td class="bodytop_label">Sundries</td><td><input type=text name="sundriescomment" id="sundriescomment" size="73"></td>
+										<td><input type=text id="sundriesprice" name="sundriesprice" class="rand" onchange="doTotals()"></td>
+										<td><input type="button" name="bAddDel" value="Add" onclick="AddSundry()" style="font-size:8px"></td>
+									</tr>																		
+								</tbody>
+								<tfoot>
+									<tr><td></td><td></td><td><input type=text class="rand" id="contractcost" name="addtotal" readonly="readonly" value=0.0></td></tr>								
+								</tfoot>
+							</table>							
+							<hr></hr>							
+							<table id="tableItem" >
+								<thead> 
+									<tr>
+										<th style=min-width:10px></th>
+										<th style=width:10>Code</th>
+										<th style=width:28>Description</th>													
+										<th style=width:10>Finish</th>
+										<th style=min-width:115px>Comment</th>										
+										<th style=width:10>Price</th>
+										<th style=width:13></th>																				
+									</tr>								
+								</thead>
+								<tbody id="bodyItem">
+									<tr id="trItem">
+										<td class="bodytop_label">Item</td>
+										<td><select name="item" id="item" onchange="doItemDesc(this)">
+												<option value=""> </option>
+												{% for item in items %}
+													<option value="{{ item.item }}">{{ item.item }}</option>
+												{% endfor %}
+											</select></td>
+										<td><input type="text" name="itemdesc" id="itemdesc" readonly="readonly" size="25"></td>
+										<td><select name="pricecat" id="pricecat" onchange="doItemPrice(this)">
+												<option value=""> </option>
+												{% for pc in pricecats %}
+													<option value="{{ pc.catcode }}">{{ pc.catcode }}</option>
+												{% endfor %}
+											</select></td>
+										<td><input type="text" name="comment" id="comment" size="25"></td>
+										<td><input type="text" name="price" id="price" class="rand" readonly="readonly"></td>										
+										<td><input type="button" name="bAddDel" value="Add" onclick="AddItem()" style="font-size:8px"></td>
+<!--										<a href="" onclick="javascript:" style="font-size:10px">Add</a></td>-->
+									</tr>
+								</tbody>
+								<tfoot>
+									<tr id="trItemfoot">
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>	
+										<td></td>										
+										<td><input id="SubTotItem" type="text" class="rand" readonly="readonly" value=0.0></td>
+										<td></td>																			
+									</tr>
+								</tfoot>									
+							</table>
+							<hr class="hr_middle" />							
+							<table id="tablePaym">
+								<thead> 								
+									<tr>
+										<th style=min-width:10px></th>
+										<th style=min-width:90px>Date</th>													
+										<th>Comment</th>
+										<th>Amount</th>										
+										<th></th>																				
+									</tr>								
+								</thead>
+								<tbody id="bodyPaym">
+									<tr id="trPaym">
+										<td class="bodytop_label">Payment</td>
+									  	<td><input type="text" name="paydatereceived" id="paydater" class="datei"></td>	
+                                      	<td><input type="text" name="paycomment" size="62"></td>
+										<td><input type="text" name="payment" class="rand" onchange="doTotals()"></td>                                      	
+									    <td><input type="button" name="bAddDel" value="Add" onclick="AddPayment()" style="font-size:8px"></td>
+									</tr>
+								</tbody>		
+								<tfoot>
+									<tr id="trPaymfoot">
+										<td></td>	
+										<td></td>
+										<td></td>
+										<td><input id="SubTotPaym" type="text" readonly="readonly" class="rand" value=0.0></td>										
+										<td></td>								
+									</tr>
+								</tfoot>														
+							</table>
+							<hr class="hr_bottom" />
+							<table>
+								<thead> 								
+									<tr>
+										<th style=min-width:480px></th>
+										<th style=min-width:100px></th>
+										<th style=width:15></th>																				
+									</tr>								
+								</thead>							
+								<tbody>
+									<tr>
+										<td style=min-width:5></td>
+										<td>TOTAL</td><td><input id="TotItem" type="text" readonly="readonly" class="rand" value=0.0></td>
+									</tr>
+									<tr>
+										<td style=min-width:5></td>									
+										<td>Less Deposit</td><td><input id="TotPaym" type="text" readonly="readonly" class="rand" value=0.0></td>
+									</tr>
+									<tr>
+										<td style=min-width:5></td>									
+										<td>BALANCE</td><td><input id="TotDue" type="text" readonly="readonly" class="rand" value=0.0></td>
+									</tr>
+								</tbody>							
+							</table>							
+							<p></p>
+							<div>
+								<input type="submit" value="Save"> or 
+                                <a href="/" class="cancel">Cancel</a>
+							</div>
+							<br>
+						</form>
+					</div>	
+					<div id="contractfooter">
+<!--						<a href="">Privacy Policy</a>       <a href="">Terms of Service</a>-->
+					</div>
+					<br>
+				</div>
+			</div>
+			<div class="rightcol">
+				<div id="messages">
+					<table class="tmenu">
+						<tbody >
+							{% for um in usermenu %}						
+                              <form id="ffc" action="{{ um.href }}" method="get">
+                                 <input type="hidden" name="ckey" value="{{ contract.contract_number }}" disabled="disabled">                        
+                                 <tr><th><input type="submit" value="{{ um.htext }}" style=width:140px></th></tr>
+<!--                                 <tr><th><a href="{{ um.href }}">{{ um.htext }}</a></th></tr>-->
+                              </form>
+							{% endfor %}
+						</tbody>
+					</table>
+					<br />
+					<br />
+					<table class="tmenu">
+						<tbody >
+							<tr style=font-size:12px><th>You are logged in as: {{ userr.user_name }}</th></tr>
+							<tr style=font-size:12px><th><a href="{{ url }}">{{ url_linktext }}</a></th></tr>							
+						</tbody>						
+					</table>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/scripts/laybuy_date.js"></script>	
+</body>
+</html>					

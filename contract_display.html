@@ -1,0 +1,261 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Memorial Art Pty LTD</title>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<link type="text/css" rel="stylesheet" href="/stylesheets/laybuy_main.css">
+	<link type="text/css" rel="stylesheet" href="/stylesheets/jquery-ui-1.8.17.custom.css">	
+	<script type="text/javascript" src="/scripts/laybuy.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-1.7.1.min.js"></script>	
+	<script type="text/javascript" src="/scripts/jquery-ui.js"></script>		
+    <script type="text/javascript">
+  	  //
+  	  // As mentioned at http://en.wikipedia.org/wiki/XMLHttpRequest
+  	  //
+ 	   if( !window.XMLHttpRequest ) XMLHttpRequest = function()
+  	  {
+       	try{ return new ActiveXObject("Msxml2.XMLHTTP.6.0") }catch(e){}
+       	try{ return new ActiveXObject("Msxml2.XMLHTTP.3.0") }catch(e){}
+       	try{ return new ActiveXObject("Msxml2.XMLHTTP") }catch(e){}
+       	try{ return new ActiveXObject("Microsoft.XMLHTTP") }catch(e){}
+       	throw new Error("Could not find an XMLHttpRequest alternative.")
+    }
+
+    // Insert 'Functions' as the name of a callable method
+    InstallFunction(server, 'ItemDesc');    
+    InstallFunction(server, 'ItemPrice');        
+    </script>
+</head>	
+<!--<body onload="branchpop(branches);">-->
+<body>
+	<div id="topheader">	
+		<h1>{{ mainheading }}</h1>
+	</div>
+	<div class="mainpage">
+		<div class="centered">
+			<div class="leftcol">
+				<div class="contract">
+					<div id="contractheader">
+						<h2>{{ heading }}</h2>
+					</div>	
+					<div id="contractbody">
+						<table class="Table_contract">
+							<thead> 
+								<tr>
+									<th style=width:20></th>
+									<th style=width:200></th>
+								</tr>								
+							</thead>	
+							<tbody id="bodytop">
+								<tr><td class="bodytop_label">Contract number</td><td><input type="text" name="ckey" readonly="readonly" value="{{ contract.contract_number }}">
+									<b>Status</b><input type="text" name="status" readonly="readonly" onchange="UpdateChangeField()" value="{{ contract.status }}"></td></tr>
+								<tr><td class="bodytop_label">Branch</td><td><input type="text" readonly="readonly" value="{{ contract.branchname }}"></td></tr>
+								<tr><td class="bodytop_label">Method of Payment</td><td><input type="text" name="methodofpayment" readonly="readonly" value="{{ contract.methodofpayment }}"></td></tr>								
+								<tr><td class="bodytop_label">Contract start</td><td><input type="text" class="datefield" name="date_start" readonly="readonly" value="{{ contract.date_start|date:_("d/m/Y") }}">
+									<b>Contract end</b> <input type="text" class="datefield" name="date_end" readonly="readonly" value="{{ contract.date_end|date:_("d/m/Y") }}"></td></tr>									
+							
+								<tr><td><hr class="hr_small"/></td><td><hr /></td></tr>			
+																						
+								<tr><td class="bodytop_label">Name</td><td><input type="text" name="customer_name" size="51" readonly="readonly" value="{{ contract.customer_name }}"> <b>Customer Code</b> <input type="text" name="customer_code" size="5" readonly="readonly" value="{{ contract.customer_code }}"></td></tr>
+								<tr><td class="bodytop_label">ID Number</td><td><input type="text" name="customer_id" size="51" readonly="readonly" value="{{ contract.customer_id }}"></td></tr>
+								<tr><td class="bodytop_label">Address</td><td><textarea name="customer_address" rows="4" cols="40" readonly="readonly">{{ contract.customer_address }}</textarea></td></tr>
+								<tr><td class="bodytop_label">Email</td><td><input type="text" name="customer_email" size="51" readonly="readonly" value="{{ contract.customer_email }}"></td></tr>
+								<tr><td class="bodytop_label">Cellphone</td><td><input type="text" name="customer_cellphone" size="30" readonly="readonly" value="{{ contract.customer_cellphone }}">
+                    					<b>Landline</b> <input type="text" name="customer_landline" size="30" readonly="readonly" value="{{ contract.customer_landline }}"></td></tr>
+							
+								<tr><td><hr class="hr_small"/></td><td><hr /></td></tr>	    
+								                					
+								<tr><td class="bodytop_label">Cemetary</td><td><input type="text" name="rearplace" size="78" value="{{ contract.rear_place }}" readonly="readonly"></td></tr>
+								<tr><td class="bodytop_label">Rear date</td><td><input type="date" class="datefield" name="date_rear" value="{{ contract.date_rear|date:_("d/m/Y") }}" readonly="readonly">
+									<b>Grave Number</b> <input type="text" name="gravenumber" size="43" value="{{ contract.gravenumber }}" readonly="readonly"></td></tr>
+								<tr><td class="bodytop_label">Special Instructions</td><td><div><textarea name="comments" rows="2" cols="60" readonly="readonly">{{ contract.comments }}</textarea></div></td></tr>
+								<tr><td class="bodytop_label">Inscription</td><td><div><textarea name="letters" rows="2" cols="60" readonly="readonly">{{ contract.letters }}</textarea></div></td></tr>
+
+								<tr><td><hr class="hr_small"/></td><td><hr /></td></tr>	 
+																		
+							</tbody>
+							<tfoot></tfoot>								
+						</table>
+							<table id="Table_contract_2">
+								<thead> 
+									<tr>
+										<th style=min-width:130px></th>
+										<th style=min-width:410px>Comment</th>										
+										<th>Price</th>
+									</tr>								
+								</thead>	
+								<tbody id="bodytop2">									
+									<tr><td class="bodytop_label">Plan fees</td><td><input type=text name="planfeescomment" size="78" readonly="readonly" value="{{ contract.planfees_comment }}"></td><td><input type=text id="planfeesprice" name="planfeesprice" class="rand" onchange="doTotals()" readonly="readonly" value="{{ contract.planfees_price }}"></td></tr>
+									<tr><td class="bodytop_label">Transport</td><td><input type=text name="transportcomment" size="78" readonly="readonly" value="{{ contract.transport_comment }}"></td><td><input type=text id="transportprice" name="transportprice" class="rand" onchange="doTotals()" readonly="readonly" value="{{ contract.transport_price }}"></td></tr>
+<!-- 									<tr><td class="bodytop_label">Sundries</td><td><input type=text name="sundriescomment" size="67" readonly="readonly" value="{{ contract.sundries_comment }}"></td><td><input type=text id="sundriesprice" name="sundriesprice" class="rand" onchange="doTotals()" readonly="readonly" value="{{ contract.sundries_price }}"></td></tr> -->
+									<tr><td class="bodytop_label">Letters</td><td><input type="text" id="lettercount" name="lettercount" size="10" onchange="doLetterCost()" readonly="readonly" value="{{ contract.letter_count }}"> @ <input type=text id="lettercost" name="lettercost" value="{{ contract.letter_cost }}" size="10" readonly="readonly" value="{{ contract.letter_cost }}"> per letter</td><td><input type=text id="letterprice" name="letterprice" class="rand" onchange="doTotals()" readonly="readonly" value="{{ contract.letter_price }}"></td></tr>									
+<!-- 									<tr><td></td><td></td><td><input type=text class="rand" id="contractcost" name="addtotal" readonly="readonly"></td></tr> -->
+								</tbody>
+							</table>	
+							<table id="tableSundry">
+								<thead> 
+									<tr>
+										<th style=min-width:130px></th>
+										<th style=min-width:505px></th>										
+										<th></th>
+										<th></th>
+									</tr>									
+								</thead>	
+								<tbody id="bodySundry">									
+<!-- 									<tr id="trSundry">
+										<td class="bodytop_label">Sundries</td><td><input type=text name="sundriescomment" id="sundriescomment" size="78"></td>
+									<tr><td class="bodytop_label">Sundries</td><td><input type=text name="sundriescomment" size="67" readonly="readonly" value="{{ contract.sundries_comment }}"></td><td><input type=text id="sundriesprice" name="sundriesprice" class="rand" onchange="doTotals()" readonly="readonly" value="{{ contract.sundries_price }}"></td></tr>
+										<td><input type="button" name="bAddDel" value="Add" onclick="AddSundry()" style="font-size:8px"></td>
+									</tr> -->
+									
+									{% for sitem in c_sundries %}
+										<tr id="trSItemDisp">									
+											<td class="bodytop_label">Sundries</td>
+										    <td><input type="text" name="sundriescomment" value="{{ sitem.sundries_comment }}" readonly="readonly" size="78"></td>
+											<td><input type="text" name="sundriesprice" value="{{ sitem.sundries_price }}" readonly="readonly" class="rand"></td>
+											<td></td>
+										</tr>
+									{% endfor %}
+
+																										
+								</tbody>
+								<tfoot>
+									<tr><td></td><td></td><td><input type=text class="rand" id="contractcost" name="addtotal" readonly="readonly" value=0.0></td></tr>								
+								</tfoot>
+							</table>																
+						<hr />
+						<table id="tableItemDisp">
+							<thead> 
+								<tr>
+									<th style=min-width:50px></th>
+									<th style=width:10>Code</th>
+									<th style=width:20>Description</th>													
+									<th style=width:10>Finish</th>
+									<th style=min-width:115px>Comment</th>										
+									<th style=width:10>Price</th>
+									<th style=width:13></th>																													
+								</tr>								
+							</thead>
+							<tfoot>
+								<tr id="trItemfoot">
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>	
+									<td></td>
+									<td><input id="SubTotItem" type="text" size="5" class="rand" readonly="readonly" value=0.0></td>
+									<td></td>																			
+								</tr>
+							</tfoot>
+							<tbody id="bodyItemDisp">
+								{% for item in c_items %}
+									<tr id="trItemDisp">		
+										<td class="bodytop_label">Item</td>
+									    <td><input type="text" name="item" value="{{ item.item }}" readonly="readonly" size="3"></td>
+										<td><input type="text" name="itemdesc" readonly="readonly" size="20" value="{{ item.description }}"></td>
+										<td><input type="text" name="pricecat" readonly="readonly" size="24" value="{{ item.price_cat }}"></td>
+										<td><input type="text" name="comment" readonly="readonly" size="23" value="{{ item.comments }}"></td>
+										<td><input type="text" name="price" size="5" class="rand" readonly="readonly" value="{{ item.price }}"></td>										
+										<td></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						<hr class="hr_middle" />
+						<table id="tablePaymDisp">
+							<thead> 								
+								<tr>
+									<th style=min-width:130px></th>
+									<th style=min-width:105px>Date</th>													
+									<th>Comment</th>
+									<th>Amount</th>										
+									<th></th>																												
+								</tr>								
+							</thead>
+							<tfoot>
+								<tr id="trPaymfoot">
+									<td></td>	
+									<td></td>
+									<td></td>
+									<td><input id="SubTotPaym" type="text" class="rand" readonly="readonly" size="6" value=0.0></td>									
+									<td></td>								
+								</tr>
+							</tfoot>									
+							<tbody id="bodyPaymDisp">
+								{% for pm in c_paym %}
+									<tr id="trPaymDisp">
+										<td class="bodytop_label">Payment</td>
+                                        <td><input type="text" class="datefield" name="paydatereceived" size="10" readonly="readonly" value="{{ pm.date_received|date:_("d/m/Y") }}"></td>
+                                        <td><input type="text" name="paycomment" size="59" readonly="readonly" value="{{ pm.comments }}"></td>
+										<td><input type="text" name="payment" size="6" class="rand" readonly="readonly" value="{{ pm.amount }}"></td>
+										<td></td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+						                   							
+						<p></p>							
+<!--							<div><input type="submit" value="Save"></div>-->
+                           {% ifequal f_item 'X' %}
+                               {% include "contract_add_items.html" %}
+                           {% else %}
+                   	        {% ifequal f_paym 'X' %}
+   	                            {% include "contract_add_payments.html" %}
+       	                    {% else %}
+       	                     	<hr class="hr_bottom"/>
+								<table>
+									<thead> 								
+										<tr>
+										<th style=min-width:533px></th>
+										<th style=min-width:100px></th>
+										<th style=width:15></th>																			
+										</tr>								
+									</thead>							
+									<tbody>
+										<tr><td></td><td>TOTAL</td><td><input id="TotItem" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+										<tr><td></td><td>Less Deposit</td><td><input id="TotPaym" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+										<tr><td></td><td>BALANCE</td><td><input id="TotDue" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+		 								<script type="text/javascript">
+	   										doTotals();        
+	    								</script>									
+									</tbody>	
+								</table>						
+							{% endifequal %}  								
+						{% endifequal %}  
+						<br>
+					</div>	
+					<div id="contractfooter">
+<!--						<a href="">Privacy Policy</a>       <a href="">Terms of Service</a>-->
+					</div>
+					<br>
+				</div>
+			</div>
+			<div class="rightcol">
+				<div id="messages">
+					<table class="tmenu">
+    	 			    <tbody >
+					       {% for um in usermenu %}		
+                              <form id="ffc" action="{{ um.href }}" method="get">
+                                 <input type="hidden" name="ckey" value="{{ contract.contract_number }}">                        
+					             <tr><th><input type="submit" value="{{ um.htext }}" style=width:140px></th></tr>
+<!--					             <tr><th><a href="{{ um.href }}">{{ um.htext }}</a></th></tr>-->
+					             
+					          </form>
+					       {% endfor %}
+		                </tbody>
+					</table>
+					<br />
+					<br />
+					<table class="tmenu">
+						<tbody >
+							<tr style=font-size:12px><th>You are logged in as: {{ userr.user_name }}</th></tr>
+							<tr style=font-size:12px><th><a href="{{ url }}">{{ url_linktext }}</a></th></tr>							
+						</tbody>						
+					</table>	
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="/scripts/laybuy_date.js"></script>		
+</body>
+</html>					

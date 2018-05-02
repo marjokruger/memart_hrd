@@ -1,0 +1,44 @@
+2018
+01.Update the jqery en html references...
+01.Maak velde groter - Bou kollome - 
+02.Menu - Home
+03.Place to set contract status.
+04.Could not read search indexes from - Fix
+05.
+06.
+07.
+08.
+09.New items - Price category.
+10. Maak screens meer dinamies. Een vir Capture, view en edit.
+
+Assumptions:
+1. No sizing on datefields, it depends what the user set the settings: 01/01/2017 or 01 Jan 2017 or 01 January 2017.
+
+
+Voor 2017
+1) Fix User defaults in start
+1a)Check ID number is valid?
+1b)Build unique list of customers? Allow to select from existing Customer?
+1c)Contract number - Number range
+1d)New contract Allign all price fields!
+1e)Items on Contract New. Limit or add to memcache?
+
+2) View / search existing contracts
+3) Edit/Delete - Branch
+4) Edit/Delete - Item
+5) Edit/Delete - Payment options
+6) Edit/Delete - price category
+7) Edit/Delete - USER Rights
+8) Split customers, store as indivual entries
+9) Report writing
+10) 
+
+
+Google Cloud Platform (GCP).
+http://sourabhbajaj.com/mac-setup/Python/virtualenv.html
+
+
+
+Coach
+1) 4. Waar die items ingelees word wil ek net graag weet hoe remove mens die eerste lyn as jy dit bv verkeerd ingelees het. 
+      Na die eerste lyn kan jy add en remove maar die die eerste lyn self kan nie remove word nie.

@@ -1,0 +1,60 @@
+
+<form action="/saveap" onsubmit="return validate_form_newc(this)" method="post">
+    <input type="hidden" name="ckey" readonly="true" value="{{ contract.contract_number }}">
+    <hr class="hr_bottom"/> 
+	<table id="tablePaym">
+		<thead> 								
+			<tr>
+				<th style=min-width:130px></th>
+				<th style=min-width:90px>Date</th>													
+				<th>Comment</th>
+				<th>Amount</th>										
+				<th></th>																					
+			</tr>								
+		</thead>
+		<tfoot>
+			<tr id="trPaymfoot">
+				<td></td>	
+				<td></td>
+				<td></td>
+<!-- 				<td><input id="SubTotPaym" type="text" readonly="readonly" size="6" value=0.0 class="rand"></td>					 -->
+				<td></td>								
+			</tr>
+		</tfoot>	
+	    <tbody id="bodyPaym">
+	            <tr id="trPaym">
+					<td class="bodytop_label">Payment</td>
+              	 	<td><input type="text" class="datei" id="dates" size=8 name="paydatereceivedAdd"/></td>	            
+	          		<td><input type="text" name="paycommentAdd" size="54" value="" /></td>
+	        	    <td align="right"><input type="text" name="paymentAdd" value="" onchange="doTotals()" class="rand"/></td>	          		
+	          	  	<td><input type="button" name="bAddDel" value="Add" onclick="AddPayment()" style=font-size:8px></td>
+	        	</tr>
+	    </tbody>
+	</table>
+    <hr class="hr_bottom"/>
+	<table>
+		<thead> 								
+			<tr>
+				<th style=min-width:538px></th>
+				<th style=min-width:100px></th>
+				<th style=width:15></th>																					
+			</tr>								
+		</thead>							
+		<tbody>
+			<tr><td style=min-width:5></td><td>TOTAL</td><td><input id="TotItem" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+			<tr><td style=min-width:5></td><td>Less Deposit</td><td><input id="TotPaym" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+			<tr><td style=min-width:5></td><td>BALANCE</td><td><input id="TotDue" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+				<script type="text/javascript">
+							doTotals();        
+						</script>									
+		</tbody>	
+	</table>	
+								
+    <p></p>	
+	<div>
+	   <input type="submit" value="Save Add Payment(s)"> or 
+           <a href="/" class="cancel">Cancel</a>	   
+	</div>
+	<br>
+	<script type="text/javascript" src="/scripts/laybuy_date.js"></script>	
+</form>

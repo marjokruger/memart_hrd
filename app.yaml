@@ -1,0 +1,39 @@
+application: memartlbuyhrd
+version: 2-01-hrddevtest
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /stylesheets
+  static_dir: stylesheets
+
+- url: /scripts
+  static_dir: scripts
+  
+- url: /images
+  static_dir: images  
+  
+- url: /favicon\.ico
+  static_files: images/favicon.ico
+  upload: images/favicon\.ico
+    
+- url: /.*
+  script: laybuy.application
+  login: required    
+  
+libraries:
+- name: PIL
+  version: "1.1.7"
+- name: webob
+  version: latest
+- name: jinja2
+  version: latest
+- name: django
+  version: latest
+- name: webapp2
+  version: latest
+     
+builtins:
+- appstats: on
+- remote_api: on

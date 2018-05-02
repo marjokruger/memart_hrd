@@ -1,0 +1,106 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Memorial Art Pty LTD</title>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<link type="text/css" rel="stylesheet" href="/stylesheets/laybuy_main.css">
+	<script type="text/javascript" src="/scripts/laybuy.js"></script>
+</head>	
+<body>
+	<div id="topheader">	
+		<h1>{{ mainheading }}</h1>
+	</div>
+	<div class="mainpage">
+		<div class="before">
+		</div>
+		<div class="centered">
+			<div class="leftcol">
+				<div class="contract">
+					<div id="contractheader">
+						<h2>Price Category</h2>
+					</div>	
+					<div id="contractbody">
+						<form action="/savepc" method="post">
+							<table class="Table_contract">
+								<thead>
+									<tr>
+										<th style=width:20></th>										
+										<th style=width:200></th>
+									</tr>
+								</thead>
+								<tfoot></tfoot>							
+								<tbody>
+									<tr><td class="bodytop_label">Price Category</td>
+										<td><input type="text" name="catcode" size="35"></td></tr>
+									<tr><td class="bodytop_label">Description</td>
+										<td><textarea name="catdesc" rows="3" cols="60"></textarea></td></tr>
+									<tr><td class="bodytop_label">Price Column</td>
+										<td><input type="number" name="catprice" min="1" max="9"></td></tr>								
+
+								</tbody>
+							</table>
+                            <br>    							
+							<div>
+							     <input type="submit" value="Save"> or 
+                                 <a href="/" class="cancel">Cancel</a>							     
+							</div>
+							<br>							
+						</form>
+                        <hr />
+                        <br>
+                        <table class="tablewide">
+                            <thead>
+                                <tr style=background-color:#D4D4D4;>
+                                    <th style=width:40px>Category</th>
+                                    <th style=width:100px>Description</th>                                                
+                                    <th style=width:30px>Price</th>  
+                                    <th style=width:30px></th>                             
+                                </tr>
+                            </thead>
+                            <tfoot></tfoot>
+                            <tbody>
+                                {% for pc in pricecats %}                              
+                                    <tr><td>{{ pc.catcode }}</td>
+                                        <td>{{ pc.catdesc }}</td>
+                                        <td align="center">{{ pc.catprice }}</td>
+                                    </tr>
+                                {% endfor %}                                
+                            </tbody>
+                        </table>
+                        <br><br><br><br><br><br>    						
+						
+					</div>	
+					<div id="contractfooter">
+<!--						<a href="">Privacy Policy</a>       <a href="">Terms of Service</a>-->
+					</div>
+				</div>
+			</div>
+			<div class="rightcol">
+				<div id="messages">
+					<table class="tmenu">
+						<tbody >
+							{% for um in usermenu %}						
+                              <form id="ffc" action="{{ um.href }}" method="get">
+                                 <input type="hidden" name="ckey" value="{{ contract.contract_number }}" disabled="disabled">                        
+                                 <tr><th><input type="submit" value="{{ um.htext }}" style=width:140px></th></tr>
+<!--                                 <tr><th><a href="{{ um.href }}">{{ um.htext }}</a></th></tr>-->
+                              </form>
+							{% endfor %}
+						</tbody>
+					</table>
+					<br />
+					<br />
+					<table class="tmenu">
+						<tbody >
+							<tr style=font-size:12px><th>You are logged in as: {{ userr.user_name }}</th></tr>
+							<tr style=font-size:12px><th><a href="{{ url }}">{{ url_linktext }}</a></th></tr>							
+						</tbody>						
+					</table>					
+				</div>
+			</div>
+		</div>
+		<div class="after">
+		</div>
+	</div>
+</body>
+</html>					

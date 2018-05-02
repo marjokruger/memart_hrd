@@ -1,0 +1,78 @@
+
+<form action="/saveai" onsubmit="return validate_form_newc(this)" method="post">
+    <input type="hidden" name="ckey" readonly="readonly" value="{{ contract.contract_number }}">
+    <hr class="hr_bottom"/>
+	<table id="tableItem">
+		<thead> 
+			<tr>
+				<th style=min-width:130px></th>
+				<th style=width:10>Code</th>
+				<th style=width:28>Description</th>													
+				<th style=width:10>Finish</th>
+				<th style=min-width:115px>Comment</th>										
+				<th style=width:10>Price</th>
+				<th style=width:13></th>	
+			</tr>								
+		</thead>
+		<tfoot>
+			<tr id="trItemfoot">
+				<td></td>
+				<td></td>
+				<td></td>
+				<td></td>	
+				<td></td>				
+<!-- 				<td><input id="SubTotItem" type="text" size="5" class="rand" readonly="readonly" value=0.0></td> -->
+				<td></td>																			
+			</tr>
+		</tfoot>			
+	    <tbody id="bodyItem">
+	        <tr id="trItem">
+				<td class="bodytop_label">Item</td>
+	       		<td><select name="itemAdd" id="item" onchange="doItemDesc(this)">
+	            		<option value=""> </option> <!--First Blank Item-->
+	                	{% for item in items %}
+	                    	<option value="{{ item.item }}">{{ item.item }}</option>
+	                    {% endfor %}
+	             	</select></td>
+	          	<td><input type="text" name="itemdescAdd" id="itemdesc" size="25"></td>
+				<td><select name="pricecatAdd" id="pricecat" onchange="doItemPrice(this)">
+						<option value=""> </option>
+						{% for pc in pricecats %}
+							<option value="{{ pc.catcode }}">{{ pc.catcode }}</option>
+						{% endfor %}
+					</select></td>	          	
+                <td><input type="text" name="commentAdd" id="comment" size="25"></td>
+	            <td><input type="text" name="priceAdd" id="price" size="10" onchange="doTotals()" class="rand"></td>                	                        
+	            <td><input type="button" name="bAddDel" value="Add" onclick="AddItem()" style="font-size:8px"></td>
+	   		</tr>
+	    </tbody>
+	</table>
+	<hr class="hr_bottom"/>
+		<table>
+			<thead> 								
+				<tr>
+					<th style=min-width:538px></th>
+					<th style=min-width:95px></th>
+					<th style=width:15></th>																					
+				</tr>								
+			</thead>							
+			<tbody>
+				<tr><td style=min-width:5></td><td>TOTAL</td><td><input id="TotItem" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+				<tr><td style=min-width:5></td><td>Less Deposit</td><td><input id="TotPaym" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+				<tr><td style=min-width:5></td><td>BALANCE</td><td><input id="TotDue" type="text" readonly="readonly" class="rand" value=0.0></td></tr>
+					<script type="text/javascript">
+						doTotals();        
+					</script>									
+			</tbody>	
+		</table>									
+		
+    <p></p>	
+	<div>
+	   <input type="submit" value="Save Add Item(s)"> or 
+            <a href="/" class="cancel">Cancel</a>	   
+	</div>
+	<br>
+</form>
+
+
+

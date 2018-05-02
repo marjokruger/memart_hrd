@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Memorial Art Pty LTD</title>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<link type="text/css" rel="stylesheet" href="/stylesheets/laybuy_main.css">
+	<script type="text/javascript" src="/scripts/laybuy.js"></script>
+</head>	
+<body>
+	<div id="topheader">	
+		<h1>{{ mainheading }}</h1>
+	</div>
+	<div class="mainpage">
+		<div class="before">
+		</div>
+		<div class="centered">
+			<div class="leftcol">
+				<div class="contract">
+					<div id="contractheader">
+						<h2>Items</h2>
+					</div>	
+					<div id="contractbody">
+						<form action="/savei" method="post">
+							<table class="Table_contract">
+								<thead>
+									<tr>
+										<th style=width:20></th>
+										<th style=width:200></th>
+									</tr>
+								</thead>
+								<tfoot></tfoot>
+								<tbody>
+									<tr><td class="bodytop_label">Item</td><td><input type="text" name="item" size="5"/></td></tr>
+									<tr><td class="bodytop_label">Item Cat</td><td><input type="text" name="itemcat" size="5"/></td></tr>
+									<tr><td class="bodytop_label">Item No</td><td><input type="text" name="itemno" size="5"/></td></tr>
+									<tr><td class="bodytop_label">Description</td><td><input type="text" name="description" size="60"/></td></tr>
+									<tr><td class="bodytop_label">Code</td><td><input type="text" name="code" size="5"/></td></tr>
+									<tr><td class="bodytop_label">Default Finish</td>															
+										<td><select name="pricecat" id="pricecat" >
+												<option value=""> </option>
+												{% for pc in pricecats %}
+													<option value="{{ pc.catcode }}">{{ pc.catcode }}</option>
+												{% endfor %}
+											</select>	
+										</td></tr>													
+									<tr><td class="bodytop_label">Comments</td><td><input type="text" name="comments" size="60"/></td></tr>
+									<tr><td class="bodytop_label">Price 1</td><td><input type="text" name="p1" size="5"/></td></tr>
+									<tr><td class="bodytop_label">Price 2</td><td><input type="text" name="p2" size="5"/></td></tr>	
+									<tr><td class="bodytop_label">Price 3</td><td><input type="text" name="p3" size="5"/></td></tr>	
+									<tr><td class="bodytop_label">Price 4</td><td><input type="text" name="p4" size="5"/></td></tr>	
+									<tr><td class="bodytop_label">Price 5</td><td><input type="text" name="p5" size="5"/></td></tr>	
+<!--    							<tr><td class="bodytop_label">Price 6</td><td><input type="text" name="p6" size="5"/></td></tr>	
+									<tr><td class="bodytop_label">Price 7</td><td><input type="text" name="p7" size="5"/></td></tr>	
+									<tr><td class="bodytop_label">Price 8</td><td><input type="text" name="p8" size="5"/></td></tr>	
+									<tr><td class="bodytop_label">Price 9</td><td><input type="text" name="p9" size="5"/></td></tr> -->																																																																																		
+								</tbody>
+							</table>
+                            <br>							
+							<div>
+							     <input type="submit" value="Save"> or 
+                                 <a href="/" class="cancel">Cancel</a>							     
+							</div>
+							<br>							
+						</form>
+                        <hr />
+                        <br>
+                        <table class="tablewide">
+                            <thead>
+                                <tr style=background-color:#D4D4D4;>
+                                    <th style=width:40px>Item</th>
+                                    <th style=width:20px>Cat</th>
+                                    <th style=width:30px>No</th>                                                                        
+                                    <th style=width:150px>Description</th>                                                
+                                    <th style=width:40px>Code</th>                               
+<!--                                    <th style=width:150px>Comments</th>                               
+                                    <th style=width:50px>Remarks</th>             -->                               
+                                    <th style=width:100px>Price Cat</th>                               
+                                    <th style=width:60px>Price 1</th>                               
+                                    <th style=width:60px>Price 2</th>                               
+                                    <th style=width:60px>Price 3</th>                               
+                                    <th style=width:60px>Price 4</th>                               
+                                    <th style=width:60px>Price 5</th>                               
+                                </tr>
+                            </thead>
+                            <tfoot></tfoot>
+                            <tbody>
+                                {% for ii in items %}                              
+                                    <tr><td>{{ ii.item }}</td>
+                                        <td>{{ ii.itemcat }}</td>
+										<td>{{ ii.itemno }}</td>                                        
+                                        <td>{{ ii.description }}</td>
+                                        <td align="center">{{ ii.code }}</td>
+<!--                                        <td>{{ ii.comment }}</td>
+                                        <td>{{ ii.remarks }}</td>                 -->
+                                        <td>{{ ii.defcat }}</td>
+                                        <td align="center">{{ ii.price1 }}</td>
+                                        <td align="center">{{ ii.price2 }}</td>
+                                        <td align="center">{{ ii.price3 }}</td>
+                                        <td align="center">{{ ii.price4 }}</td>
+                                        <td align="center">{{ ii.price5 }}</td>
+                                    </tr>
+                                {% endfor %}                                
+                            </tbody>
+                        </table>
+                        <br><br><br><br><br><br>
+					</div>	
+					<div id="contractfooter">
+<!--						<a href="">Privacy Policy</a>       <a href="">Terms of Service</a>-->
+					</div>
+				</div>
+			</div>
+			<div class="rightcol">
+				<div id="messages">
+					<table class="tmenu">
+						<tbody >
+							{% for um in usermenu %}						
+                              <form id="ffc" action="{{ um.href }}" method="get">
+                                 <input type="hidden" name="ckey" value="{{ contract.contract_number }}" disabled="disabled">                        
+                                 <tr><th><input type="submit" value="{{ um.htext }}" style=width:140px></th></tr>
+<!--                                 <tr><th><a href="{{ um.href }}">{{ um.htext }}</a></th></tr>-->
+                              </form>
+							{% endfor %}
+						</tbody>
+					</table>
+					<br />
+					<br />
+					<table class="tmenu">
+						<tbody >
+							<tr style=font-size:12px><th>You are logged in as: {{ userr.user_name }}</th></tr>
+							<tr style=font-size:12px><th><a href="{{ url }}">{{ url_linktext }}</a></th></tr>							
+						</tbody>						
+					</table>				
+				</div>
+			</div>
+		</div>
+		<div class="after">
+		</div>
+	</div>
+</body>
+</html>					

@@ -1,0 +1,157 @@
+html, body {
+/*	display: block; */
+	background: #E0E0E0;
+	margin: 0px 0px 0px 0px; /* Very Very Important */
+/*	padding: 0px 0px 0px 0px; */ 
+}
+
+.bodytop_label {
+	text-align: right;
+	font-weight: bold;
+}
+
+.cancel {
+	font-size: 10px;	
+}
+
+.hr_small {
+	width: 100%;
+	noshade;
+}
+
+.hr_middle {
+	width: 100%;
+	noshade;
+}
+
+.hr_bottom {
+	height:2px;
+	background-color:black;
+}
+
+div#topheader { 
+	background: #66CCCC;
+	margin: 0px 0px 0px 0px;  
+	padding: 10px 20px 1px 25px; 
+	min-width: 1000px; 
+	text-align: left; 
+}
+
+div.mainpage { 
+	margin: 0px auto 0px auto;
+	padding: 10px 20px 1px 10px; /* Very Very Important*/
+	min-width: 1000px;
+}
+
+div.centered {
+	margin: 0px auto 0px auto;
+/*	padding: 0px 0px 0px 0px; */ 
+}
+
+div.leftcol { 
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px; 
+	width: 65%;
+	float: left;
+}
+
+div.rightcol { 
+	margin: 0px 0px 0px 0px;
+/*	padding: 0px 0px 0px 0px; */ 
+	width: 35%;
+	float: right;
+}
+
+div.contract { 
+	margin: 0px 20px 0px 0px; 
+	padding: 0px 0px 0px 0px;	/* Very Very Important */
+}
+
+div#contractheader { 
+	border-top-left-radius:15px;
+	border-top-right-radius: 15px;
+	box-shadow: 3px 3px 7px #777;
+		
+	background: #D4D4D4;
+/*	margin: 0px 0px 0px 0px;*/  
+	padding: 1px 5px 1px 15px; 
+	text-align: left;
+}
+
+div#contractbody { 
+	background: white;
+/*	margin: 0px 0px 0px 0px; */  
+	padding: 1px 5px 1px 15px; 
+	text-align: left;
+
+	border-bottom-left-radius: 15px;
+	border-bottom-right-radius: 15px;	
+	box-shadow: 3px 3px 7px #777;
+}
+
+div#contractfooter {
+	font-size: 10px;
+}
+
+div#messages { 
+/*	
+	margin: 0px 0px 0px 0px;  
+	padding: 0px 0px 0px 0px;  
+	text-align: left;
+*/ 
+}
+
+h1{
+	color : black	;
+/*	background : yellow;*/
+}
+
+
+.tmenu {
+/*	text-align: center; */		
+	border-collapse:collapse;
+	width: 200px;		
+}
+
+.tmenu tbody tr:nth-child(odd) {
+			background-color: rgba(204, 204, 204, 0.1);
+			font-size:14px;
+/*			padding:0 0 0 10px;*/	
+/*			text-align: left; */
+}
+.tmenu tbody tr:nth-child(even) {
+			background-color: rgba(173, 173, 173, 0.2);
+			font-size:14px;	
+/*			padding:0 0 0 10px;*/				
+/*			text-align: left;*/				
+}
+
+.tablewide {
+/*	text-align: center; */		
+	border-collapse:collapse;
+/*	width: 200px;*/		
+}
+
+.tablewide tbody tr:nth-child(odd) {
+			background-color: rgba(204, 204, 204, 0.1);
+			font-size:14px;
+/*			padding:0 0 0 10px;*/	
+/*			text-align: left; */
+}
+.tablewide tbody tr:nth-child(even) {
+			background-color: rgba(173, 173, 173, 0.2);
+			font-size:14px;	
+/*			padding:0 0 0 10px;*/				
+/*			text-align: left;*/				
+}
+
+.datefield {
+	width:95px;	
+}
+
+.rand {
+	width:60px;
+	text-align: right;
+}
+
+        

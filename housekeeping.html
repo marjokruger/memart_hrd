@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<title>Memorial Art Pty LTD</title>
+	<link type="text/css" rel="stylesheet" href="/stylesheets/laybuy_main.css">	
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+
+	<script type="text/javascript" src="/scripts/laybuy.js"></script>
+</head>	
+<body>
+	<div id="topheader">	
+		<h1>{{ mainheading }}</h1>
+	</div>
+	<div class="mainpage">
+		<div class="before">
+		</div>
+		<div class="centered">
+			<div class="leftcol">
+				<div class="contract">
+					<div id="contractheader">
+						<h2>Housekeeping</h2>
+					</div>	
+					<div id="contractbody">
+						<form action="/savehk" method="post">
+							<table>
+								<thead>
+									<tr>
+										<th style=width:20></th>
+										<th style=width:100></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr><td class="bodytop_label">Heading</td><td><input type="text" name="hkmainheading" size="50" value="{{ hk.mainheading }}"/></td></tr>
+									<tr><td class="bodytop_label">Company Name</td><td><input type="text" name="hkcompany_name" size="50" value="{{ hk.company_name}}"/></td></tr>
+									<tr><td class="bodytop_label">Company Reg No.</td><td><input type="text" name="hkcompany_regno" value="{{ hk.company_regno}}"/></td></tr>
+									<tr><td class="bodytop_label">Company Vat No.</td><td><input type="text" name="hkcompany_vatno" value="{{ hk.company_vatno}}"/></td></tr>
+									<tr><td class="bodytop_label">Cost per letter</td><td><input type="text" name="hklettercost" class="rand" value="{{ hk.lettercost }}"/></td></tr>
+									<tr><td class="bodytop_label">Contract period (Days)</td><td><input type="text" name="hkContractPeriod" class="rand" value="{{ hk.contract_period }}"/></td></tr>									
+								</tbody>
+								<tfoot></tfoot>								
+							</table>
+							<br>
+							<div>
+							     <input type="submit" value="Save"> or 
+                                 <a href="/" class="cancel">Cancel</a>							     
+							</div>
+							<br>							
+						</form>
+					</div>	
+					<div id="contractfooter">
+<!--						<a href="">Privacy Policy</a>       <a href="">Terms of Service</a>-->
+					</div>
+				</div>
+			
+			</div>
+			<div class="rightcol">
+				<div id="messages">
+					<table class="tmenu">
+						<tbody >
+							{% for um in usermenu %}						
+                              <form id="ffc" action="{{ um.href }}" method="get">
+                                 <input type="hidden" name="ckey" value="{{ contract.contract_number }}" disabled="disabled">                        
+                                 <tr><th><input type="submit" value="{{ um.htext }}" style=width:140px></th></tr>
+<!--                                 <tr><th><a href="{{ um.href }}">{{ um.htext }}</a></th></tr>-->
+                              </form>
+							{% endfor %}
+						</tbody>
+					</table>
+					<br />
+					<br />
+					<table class="tmenu">
+						<tbody >
+							<tr style=font-size:12px><th>You are logged in as: {{ userr.user_name }}</th></tr>
+							<tr style=font-size:12px><th><a href="{{ url }}">{{ url_linktext }}</a></th></tr>							
+						</tbody>						
+					</table>					
+				</div>
+			</div>
+		</div>
+		<div class="after">
+		</div>
+	</div>
+</body>
+</html>					
